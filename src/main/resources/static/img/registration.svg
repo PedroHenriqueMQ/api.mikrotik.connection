@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg aria-hidden="true" data-prefix="fas" data-icon="user" class="svg-inline--fa fa-user fa-w-14" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <bx:guide x="66.914" y="100.076" angle="90"/>
+    <bx:guide x="58.064" y="200.696" angle="90"/>
+    <bx:guide x="55.528" y="299.693" angle="90"/>
+    <bx:guide x="88.302" y="400.004" angle="90"/>
+    <bx:guide x="97.284" y="286.24" angle="0"/>
+  </defs>
+  <rect x="25.387" y="25.067" width="397.517" height="461.875" style="stroke-linejoin: round; fill: none; stroke: rgb(70, 70, 70); stroke-linecap: round; stroke-dashoffset: -68px; stroke-width: 50px;"/>
+  <g transform="matrix(1.436682, -0.248178, 0.254812, 1.475092, 37.702625, 28.89187)" style="transform-origin: 265.751px 286.951px;">
+    <title>caneta</title>
+    <path style="stroke-linecap: round; stroke-linejoin: round; stroke-dashoffset: -51px; stroke-width: 5px; fill: rgb(70, 70, 70); stroke: rgb(70, 70, 70);" d="M 253.894 274.091 L 288.036 228.576 L 299.039 222.206 L 310.22 228.399 L 213.907 351.352 L 216.803 332.241 L 218.54 323.554 L 253.894 274.091 Z"/>
+    <path style="stroke-linecap: round; stroke-linejoin: round; stroke-dashoffset: -51px; stroke-width: 5px; fill: rgb(70, 70, 70); stroke: rgb(70, 70, 70); transform-box: fill-box; transform-origin: 50% 50%;" d="M 256.983 301.973 L 291.125 347.488 L 302.128 353.858 L 314.505 346.951 L 216.997 224.712 L 219.893 243.823 L 221.63 252.51 L 256.983 301.973 Z" transform="matrix(-0.232137, -0.972683, 0.972683, -0.232137, -0.000017, -0.000018)"/>
+  </g>
+  <rect x="97.284" y="-100.152" width="253.495" style="stroke-linejoin: round; fill: none; stroke: rgb(70, 70, 70); stroke-linecap: round; stroke-dashoffset: -68px; stroke-width: 50px;" transform="matrix(1, 0, 0, -1, 0, 0)" height="0.152"/>
+  <rect x="-49.031" y="75.85" width="5.929" height="0.076" style="stroke-linejoin: round; fill: none; stroke: rgb(70, 70, 70); stroke-linecap: round; stroke-dashoffset: -68px; stroke-width: 50px;" transform="matrix(1, 0, 0, 1, 393.881104, 325.027008)"/>
+  <rect x="-97.284" y="300.076" width="111.267" style="stroke-linejoin: round; fill: none; stroke: rgb(70, 70, 70); stroke-linecap: round; stroke-dashoffset: -68px; stroke-width: 50px;" transform="matrix(1, 0, 0, -1, 197.283997, 600.151989)" height="0.076"/>
+  <rect x="-97.284" y="400.877" width="91.502" style="stroke-linejoin: round; fill: none; stroke: rgb(70, 70, 70); stroke-linecap: round; stroke-dashoffset: -68px; stroke-width: 50px;" transform="matrix(1, 0, 0, -1, 197.283997, 801.906021)" height="0.076"/>
+  <rect x="100" y="-200.696" width="253.495" style="stroke-linejoin: round; fill: none; stroke: rgb(70, 70, 70); stroke-linecap: round; stroke-dashoffset: -68px; stroke-width: 50px;" transform="matrix(1, 0, 0, -1, 0, 0)" height="0.152"/>
+</svg>

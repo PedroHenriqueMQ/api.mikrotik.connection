@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet hotspot - Log in</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+
+    <!-- two other colors
+
+<body class="lite">
+<body class="dark">
+
+-->
+
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username" />
+        <input type="hidden" name="password" />
+        <input type="hidden" name="dst" value="$(link-orig)" />
+        <input type="hidden" name="popup" value="true" />
+    </form>
+
+    <script src="../static/js/md5.js"></script>
+    <script>
+        function doLogin() {
+            document.sendin.username.value = document.login.username.value;
+            document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+            document.sendin.submit();
+            return false;
+        }
+
+    </script>
+    $(endif)
+    <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap animated fadeIn">
+                <form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+                    <input type="hidden" name="dst" value="$(link-orig)" />
+                    <input type="hidden" name="popup" value="true" />
+                    
+                    <img src="../static/img/logo.png" alt="logo católica + diocesano" class="logo">
+
+                    <p class="info $(if error)alert$(endif)">
+                        $(if error == "")Faça login para usar o serviço de hotspot na Internet $(if trial == 'yes')<br />Teste gratuito disponível, <a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)">clique aqui</a>.$(endif)
+                        $(endif)
+
+                        $(if error)$(error)$(endif)
+                    </p>
+                    <label>
+                        <img class="ico" src="../static/img/user.svg" alt="#" />
+                        <input name="username" type="text" value="$(username)" placeholder="Usuário" />
+                    </label>
+
+                    <label>
+                        <img class="ico" src="../static/img/password.svg" alt="#" />
+                        <input name="password" type="password" placeholder="Senha" />
+                    </label>
+
+                    <input type="submit" value="Conectar" />
+
+                    <p>Ainda não tem uma conta?
+                        <a href="/singup">Cadastre-se</a>
+                    </p>
+
+                </form>
+                <p class="info bt">Distribuído por XXX</p>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
