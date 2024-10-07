@@ -14,13 +14,13 @@ public class UsuarioController {
     UsuarioService usuarioService;
 
     @PostMapping("/login")
-    void login(@Valid @RequestBody UsuarioLogin usuarioSystemLogin) throws MikrotikApiException {
-        System.out.println(usuarioService.efetuarLogin(usuarioSystemLogin));
+    void login(@Valid @RequestBody UsuarioLogin usuarioSystemLogin) {
+
     }
 
     @PostMapping("/logout")
     void logout() {
-        System.out.println();
+
     }
 
     @PostMapping("/create-account")
@@ -31,5 +31,10 @@ public class UsuarioController {
     @DeleteMapping("/delete-account/{usuario}")
     void deleteAccount(@Valid @PathVariable String usuario) throws MikrotikApiException {
         System.out.println(usuarioService.apagarConta(usuario));
+    }
+
+    @PutMapping("/update-account")
+    void updateAccount(@Valid @RequestBody UsuarioCadastro usuario) throws MikrotikApiException {
+        System.out.println(usuarioService.atualizarConta(usuario));
     }
 }
