@@ -1,8 +1,8 @@
 package edu.catolica.api.mikrotik.connection.controller;
 
-import edu.catolica.api.mikrotik.connection.domain.dto.UsuarioCadastro;
-import edu.catolica.api.mikrotik.connection.domain.dto.UsuarioLogin;
-import edu.catolica.api.mikrotik.connection.domain.service.UsuarioService;
+import edu.catolica.api.mikrotik.connection.dto.UsuarioCadastro;
+import edu.catolica.api.mikrotik.connection.dto.UsuarioLogin;
+import edu.catolica.api.mikrotik.connection.service.UsuarioService;
 import jakarta.validation.Valid;
 import me.legrange.mikrotik.MikrotikApiException;
 import org.springframework.beans.factory.annotation.Autowired;
