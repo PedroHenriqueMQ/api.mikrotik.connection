@@ -2,19 +2,19 @@ package edu.catolica.api.mikrotik.connection.service;
 
 import edu.catolica.api.mikrotik.connection.dto.UsuarioCadastro;
 import edu.catolica.api.mikrotik.connection.infra.MikroTikApiClient;
+import lombok.RequiredArgsConstructor;
 import me.legrange.mikrotik.MikrotikApiException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class UsuarioService {
-    @Autowired
-    MikroTikApiClient mikroTikApiClient;
+    private final MikroTikApiClient mikroTikApiClient ;
 
-    public boolean criarConta(UsuarioCadastro usuario) throws MikrotikApiException {
+    public void criarConta(UsuarioCadastro usuario) throws MikrotikApiException {
         String comando = String.format(
                 "/ip/hotspot/user/add name=%s password=\"%s\" comment=\"%s\" profile=default limit-uptime=1h",
                 usuario.usuario(),
@@ -23,11 +23,9 @@ public class UsuarioService {
         );
 
         mikroTikApiClient.getConnection().execute(comando);
-
-        return true;
     }
 
-    public boolean apagarConta(String usuario) throws MikrotikApiException {
+    public void apagarConta(String usuario) throws MikrotikApiException {
         var usuarioBusca = encontrarUsuario(usuario);
 
         if (!usuarioBusca.isEmpty()) {
@@ -35,16 +33,13 @@ public class UsuarioService {
 
             String comandoDeletar = String.format("/ip/hotspot/user/remove .id=%s", userId);
             mikroTikApiClient.getConnection().execute(comandoDeletar);
-
-            return true;
         }
 
         System.out.println("Usuário não encontrado.");
-        return false;
     }
 
 
-    public boolean atualizarConta(UsuarioCadastro usuario) throws MikrotikApiException {
+    public void atualizarConta(UsuarioCadastro usuario) throws MikrotikApiException {
         var usuarioBusca = encontrarUsuario(usuario.usuario());
 
         if (!usuarioBusca.isEmpty()) {
@@ -58,12 +53,9 @@ public class UsuarioService {
             );
 
             mikroTikApiClient.getConnection().execute(comandoAtualizar);
-
-            return true;
         }
 
         System.out.println("Usuário não encontrado.");
-        return false;
     }
 
     private List<Map<String, String>> encontrarUsuario(String usuario) throws MikrotikApiException {
