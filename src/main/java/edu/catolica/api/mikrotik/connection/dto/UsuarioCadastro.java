@@ -21,11 +21,11 @@ public record UsuarioCadastro(
         @NotBlank(message = "Este campo não pode estar vazio.")
         @Pattern(regexp = "\\d+", message = "Este campo só aceita valores numéricos.")
         @Size(min = 11, max = 11, message = "Este campo deve ter exatamente 11 dígitos.")
-        @JsonAlias("phone_number")
+        @JsonAlias("telephone")
         String telefone,
 
         @NotBlank(message = "Este campo não pode estar vazio.")
-        @JsonAlias("user")
+        @JsonAlias("username")
         String usuario,
 
         @NotBlank(message = "Este campo não pode estar vazio.")

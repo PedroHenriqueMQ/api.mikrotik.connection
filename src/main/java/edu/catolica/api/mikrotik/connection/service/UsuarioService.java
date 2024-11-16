@@ -6,16 +6,15 @@ import lombok.RequiredArgsConstructor;
 import me.legrange.mikrotik.MikrotikApiException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
 public class UsuarioService {
-    private final MikroTikApiClient mikroTikApiClient ;
+    private final MikroTikApiClient mikroTikApiClient;
 
     public void criarConta(UsuarioCadastro usuario) throws MikrotikApiException {
-        String comando = String.format(
+        var comando = String.format(
                 "/ip/hotspot/user/add name=%s password=\"%s\" comment=\"%s\" profile=default limit-uptime=1h",
                 usuario.usuario(),
                 usuario.senha(),
@@ -27,42 +26,31 @@ public class UsuarioService {
 
     public void apagarConta(String usuario) throws MikrotikApiException {
         var usuarioBusca = encontrarUsuario(usuario);
+        var userId = usuarioBusca.get(".id");
 
-        if (!usuarioBusca.isEmpty()) {
-            String userId = usuarioBusca.get(0).get(".id");
-
-            String comandoDeletar = String.format("/ip/hotspot/user/remove .id=%s", userId);
-            mikroTikApiClient.getConnection().execute(comandoDeletar);
-        }
-
-        System.out.println("Usuário não encontrado.");
+        var comandoDeletar = String.format("/ip/hotspot/user/remove .id=%s", userId);
+        mikroTikApiClient.getConnection().execute(comandoDeletar);
     }
-
 
     public void atualizarConta(UsuarioCadastro usuario) throws MikrotikApiException {
         var usuarioBusca = encontrarUsuario(usuario.usuario());
+        var userId = usuarioBusca.get(".id");
 
-        if (!usuarioBusca.isEmpty()) {
-            String userId = usuarioBusca.get(0).get(".id");
+        var comandoAtualizar = String.format("/ip/hotspot/user/set .id=%s name=%s password=\"%s\" comment=\"%s\"",
+                userId,
+                usuario.usuario(),
+                usuario.senha(),
+                formularComentario(usuario)
+        );
 
-            String comandoAtualizar = String.format("/ip/hotspot/user/set .id=%s name=%s password=\"%s\" comment=\"%s\"",
-                    userId,
-                    usuario.usuario(),
-                    usuario.senha(),
-                    formularComentario(usuario)
-            );
-
-            mikroTikApiClient.getConnection().execute(comandoAtualizar);
-        }
-
-        System.out.println("Usuário não encontrado.");
+        mikroTikApiClient.getConnection().execute(comandoAtualizar);
     }
 
-    private List<Map<String, String>> encontrarUsuario(String usuario) throws MikrotikApiException {
-        String comandoPesquisar = String.format("/ip/hotspot/user/print where name=%s", usuario);
-        List<Map<String, String>> resultadoPesquisa = mikroTikApiClient.getConnection().execute(comandoPesquisar);
+    private Map<String, String> encontrarUsuario(String usuario) throws MikrotikApiException {
+        var comandoPesquisar = String.format("/ip/hotspot/user/print where name=%s", usuario);
+        var resultadoPesquisa = mikroTikApiClient.getConnection().execute(comandoPesquisar);
 
-        return resultadoPesquisa;
+        return resultadoPesquisa.getFirst();
     }
 
     private String formularComentario(UsuarioCadastro usuario) {
@@ -74,5 +62,4 @@ public class UsuarioService {
                 usuario.telefone()
         );
     }
-
 }

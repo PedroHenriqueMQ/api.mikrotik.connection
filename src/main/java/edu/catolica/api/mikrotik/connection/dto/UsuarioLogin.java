@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record UsuarioLogin(
         @NotBlank(message = "Este campo não pode estar vazio.")
-        @JsonAlias("user")
+        @JsonAlias("username")
         String usuario,
 
         @NotBlank(message = "Este campo não pode estar vazio.")
