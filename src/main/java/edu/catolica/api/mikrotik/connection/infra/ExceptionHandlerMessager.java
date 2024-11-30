@@ -18,7 +18,7 @@ public class ExceptionHandlerMessager {
         StringBuilder erroMsg = new StringBuilder();
 
         for (FieldError erro : exception.getBindingResult().getFieldErrors()) {
-            erroMsg.append(erro.getField().toUpperCase() + ": " + erro.getDefaultMessage() + ".\n");
+            erroMsg.append(erro.getField().toUpperCase() + ": " + erro.getDefaultMessage() + "\n");
         }
 
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(erroMsg.toString());
