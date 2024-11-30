@@ -14,12 +14,18 @@ import java.util.Map;
 public class ExceptionHandlerMessager {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException exception) {
-        Map<String, String> erros = new HashMap<>();
+    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException exception) {
+        StringBuilder erroMsg = new StringBuilder();
+
         for (FieldError erro : exception.getBindingResult().getFieldErrors()) {
-            erros.put(erro.getField(), erro.getDefaultMessage());
+            erroMsg.append(erro.getField().toUpperCase() + ": " + erro.getDefaultMessage() + ".\n");
         }
 
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(erros);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(erroMsg.toString());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentExceptions(IllegalArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
     }
 }
