@@ -1,6 +1,5 @@
 package edu.catolica.api.mikrotik.connection.domain.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
 
