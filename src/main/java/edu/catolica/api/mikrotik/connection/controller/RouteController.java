@@ -11,8 +11,8 @@ public class RouteController {
         return "login";
     }
 
-    @GetMapping("/singup")
-    public String singup() {
-        return "singup";
+    @GetMapping("/signup")
+    public String signUp() {
+        return "signup";
     }
 }
