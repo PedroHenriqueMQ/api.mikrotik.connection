@@ -1,8 +1,10 @@
 package edu.catolica.api.mikrotik.connection.domain.service;
 
 import edu.catolica.api.mikrotik.connection.domain.dto.UserRegistration;
+import edu.catolica.api.mikrotik.connection.domain.exception.ServerConnectionTimeoutException;
+import edu.catolica.api.mikrotik.connection.infra.MikrotikConnectionProvider;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.legrange.mikrotik.ApiConnection;
 import me.legrange.mikrotik.MikrotikApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +16,9 @@ import static edu.catolica.api.mikrotik.connection.domain.constants.MikrotikComm
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserService implements IUserService {
-    private ApiConnection connection;
-
-    @Autowired
-    public UserService(@Autowired(required = false) ApiConnection apiConnection) {
-        this.connection = apiConnection;
-    }
-
+    private final MikrotikConnectionProvider provider;
 
     private String formulateComment(UserRegistration user) {
         return String.format(
@@ -46,7 +43,7 @@ public class UserService implements IUserService {
                 formulateComment(userRegistration)
         );
 
-        connection.execute(createUserCommand);
+        provider.getConnection().execute(createUserCommand);
         return true;
     }
 
@@ -58,7 +55,7 @@ public class UserService implements IUserService {
             var userId = searchedUser.getFirst().get(".id");
             var deleteCommand = formulateCommand(DELETE_USER, userId);
 
-            connection.execute(deleteCommand);
+            provider.getConnection().execute(deleteCommand);
             log.info("Usuário removido com sucesso.");
             return true;
         }
@@ -81,7 +78,7 @@ public class UserService implements IUserService {
                     comment
             );
 
-            connection.execute(updateCommand);
+            provider.getConnection().execute(updateCommand);
             log.info("Usuário atualizado com sucesso.");
             return true;
         }
@@ -91,7 +88,7 @@ public class UserService implements IUserService {
 
     private List<Map<String, String>> searchUser(String username) throws MikrotikApiException {
         var searchCommand = formulateCommand(SEARCH_USER, username);
-        var searchResult = connection.execute(searchCommand);
+        var searchResult = provider.getConnection().execute(searchCommand);
 
         if (searchResult.isEmpty())
             log.warn("Usuário não encontrado.");
