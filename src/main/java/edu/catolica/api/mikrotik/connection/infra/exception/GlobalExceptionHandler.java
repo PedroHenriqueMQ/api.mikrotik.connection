@@ -1,8 +1,9 @@
 package edu.catolica.api.mikrotik.connection.infra.exception;
 
 import edu.catolica.api.mikrotik.connection.domain.dto.OperationResult;
-import edu.catolica.api.mikrotik.connection.domain.exception.ServerNotConnectedException;
+import edu.catolica.api.mikrotik.connection.domain.exception.ServerConnectionTimeoutException;
 import edu.catolica.api.mikrotik.connection.domain.exception.UserNotFoundException;
+import me.legrange.mikrotik.MikrotikApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,19 +15,31 @@ public class GlobalExceptionHandler {
     public ResponseEntity<OperationResult> handleUserNotFoundException(UserNotFoundException ex) {
         var result = new OperationResult(
                 false,
-                "Usuário não encontrado: " + ex.getMessage()
+                ex.getMessage()
         );
 
         return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ServerNotConnectedException.class)
-    public ResponseEntity<OperationResult> handleUnsatisfiedDependencyException(ServerNotConnectedException ex) {
+    @ExceptionHandler(ServerConnectionTimeoutException.class)
+    public ResponseEntity<OperationResult> handleServerConnectionTimeoutException(ServerConnectionTimeoutException ex) {
         var result = new OperationResult(
                 false,
-                "Falha de conexão do servidor: " + ex.getMessage()
+                ex.getMessage()
         );
 
-        return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(result, HttpStatus.GATEWAY_TIMEOUT);
+    }
+
+    @ExceptionHandler(MikrotikApiException.class)
+    public ResponseEntity<OperationResult> handleMikrotikApiException(MikrotikApiException ex) {
+        var message = "Serviço inalcançável no momento: " + ex.getMessage();
+
+        var result = new OperationResult(
+                false,
+                message
+        );
+
+        return new ResponseEntity<>(result, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }
