@@ -6,4 +6,8 @@ public class ServerConnectionTimeoutException extends MikrotikApiException {
     public ServerConnectionTimeoutException() {
         super("Falha de conexão com o servidor");
     }
+
+    public ServerConnectionTimeoutException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
